@@ -11,7 +11,7 @@ $ npm install hr.logger
 
 ### Documentation
 
-```
+```js
 var logger = require("hr.logger")("mymodule");
 
 logger.log("Hello world", { test: true });
