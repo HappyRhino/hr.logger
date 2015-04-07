@@ -4,17 +4,11 @@ var Class = require("hr.class");
 var Logger = Class.extend({
     defaults: {
         namespace: "app",
-        handler: console
+        handler: console,
+        level: "log"
     },
 
     initialize: function() {
-        if (_.isFunction(this.handler)) {
-            this.handler = {};
-            _.each(Logger.levels, function(level, tag) {
-                this.handler[tag] = this.options.handler;
-            }, this);
-        }
-
         _.each(Logger.levels, function(level, tag) {
             this.addMethod(tag);
         }, this);
@@ -28,14 +22,13 @@ var Logger = Class.extend({
      */
     printLog: function(type) {
         var args = Array.prototype.slice.call(arguments, 1);
-        var level = configs.logLevels[this.namespace] || configs.logLevel;
 
-        if (this.logLevel(type) < this.logLevel(level)) {
+        if (this.logLevel(type) < this.logLevel(this.options.level)) {
             return this;
         }
-        args.splice(0, 0, "[" + this.namespace + "] [" + type + "]");
-        var logMethod = Function.prototype.bind.call(this.handler[type], this.handler);
-        logMethod.apply(this.handler[type], args);
+        args.splice(0, 0, "[" + this.options.namespace + "] [" + type + "]");
+        var logMethod = Function.prototype.bind.call(this.options.handler[type], this.options.handler);
+        logMethod.apply(null, args);
     },
 
     /*
