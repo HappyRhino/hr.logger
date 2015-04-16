@@ -1,13 +1,9 @@
 {
     "name": "hr.logger",
     "description": "Logging utility for HappyRhino",
-    "version": "0.1.1",
-    "peerDependencies": {
-        "hr.utils": "*",
-        "hr.class": "*"
-    },
+    "version": "0.2.0",
     "devDependencies": {
-        "hr.mocha": "0.2.0"
+        "hr.mocha": "^0.2.0"
     },
     "repository": {
         "type": "git",
@@ -15,5 +11,9 @@
     },
     "scripts": {
         "test": "./node_modules/.bin/hr-mocha ./tests/index.js"
+    },
+    "dependencies": {
+        "hr.utils": "*",
+        "hr.class": "*"
     }
 }
