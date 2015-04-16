@@ -1,6 +1,8 @@
 var _ = require("hr.utils");
 var Class = require("hr.class");
 
+var stackParser = require("stack-parser");
+
 var Logger = Class.extend({
     defaults: {
         namespace: "app",
@@ -57,9 +59,25 @@ var Logger = Class.extend({
     /*
      *  Load and exception
      */
-    exception: function(err, message) {
-        this.error(message, err.stack);
-        this.error(err);
+    exception: function(message, error) {
+        if (!error) {
+            error = message;
+            message = null;
+        }
+
+        var that = this;
+        var stack = stackParser.parse(error.stack || "");
+
+        that.log("");
+        that.warn(message || "Exception:");
+        that.error(error);
+
+        that.warn("======== Stack Trace ========");
+        stack.forEach(function(item) {
+            that.warn(item.format('%w (%f, line: %l, column: %c)'));
+        });
+        that.warn("======== End of Stack Trace ========");
+        that.log("");
     }
 }, {
     levels: {
