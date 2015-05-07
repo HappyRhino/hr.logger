@@ -1,4 +1,4 @@
-var _ = require("hr.utils");
+var _ = require("lodash");
 var Class = require("hr.class");
 
 var stackParser = require("stack-parser");
@@ -29,7 +29,7 @@ var Logger = Class.extend({
             return this;
         }
         args.splice(0, 0, "[" + this.options.namespace + "] [" + type + "]");
-        var logMethod = Function.prototype.bind.call(this.options.handler[type], this.options.handler);
+        var logMethod = _.bind(this.options.handler[type], this.options.handler);
         logMethod.apply(null, args);
     },
 
