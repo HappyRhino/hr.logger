@@ -1,7 +1,7 @@
 {
     "name": "hr.logger",
     "description": "Logging utility for HappyRhino",
-    "version": "0.3.0",
+    "version": "1.0.0",
     "devDependencies": {
         "hr.mocha": "^0.2.0"
     },
